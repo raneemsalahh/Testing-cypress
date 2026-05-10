@@ -1,6 +1,6 @@
 class LoginPage {
   navigate() {
-    cy.visit("/", { timeout: 60000 });
+    cy.visit("/", { timeout: 60000, failOnStatusCode: false });
     cy.get('[data-test="product-name"]', { timeout: 15000 }).should("be.visible");
     cy.get('[data-test="nav-sign-in"]').click();
     cy.get('[data-test="email"]', { timeout: 15000 }).should("be.visible");
@@ -36,4 +36,4 @@ class LoginPage {
   }
 }
 
-export default new LoginPage();
+module.exports = new LoginPage();

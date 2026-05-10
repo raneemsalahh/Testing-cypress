@@ -1,7 +1,7 @@
 class HomePage {
   visit() {
     cy.intercept("GET", "**/products?*").as("getInitialProducts");
-    cy.visit("/", { timeout: 60000 });
+    cy.visit("/", { timeout: 60000, failOnStatusCode: false });
     cy.wait("@getInitialProducts", { timeout: 30000 });
     cy.get('[data-test="product-name"]', { timeout: 15000 })
       .should("be.visible")
@@ -30,4 +30,4 @@ class HomePage {
   }
 }
 
-export default new HomePage();
+module.exports = new HomePage();

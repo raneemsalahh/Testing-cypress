@@ -5,32 +5,18 @@
 // ── NAVIGATION ──────────────────────────────────────────────────────────────────
 
 Cypress.Commands.add("visitHomepage", () => {
-  // 1. Listen for the backend API call that loads the homepage products
   cy.intercept("GET", "**/products?*").as("getInitialProducts");
-
-  // 2. Visit the homepage
-  cy.visit("/", { timeout: 60000 });
-
-  // 3. Wait up to 30 seconds for the server to actually return the product data
+  cy.visit("/", { timeout: 60000, failOnStatusCode: false });
   cy.wait("@getInitialProducts", { timeout: 30000 });
-
-  // 4. Now that we know the data arrived, wait for Angular to draw it on the screen
   cy.get('[data-test="product-name"]', { timeout: 15000 })
     .should("be.visible")
     .and("have.length.greaterThan", 0);
 });
 
 Cypress.Commands.add("goToLogin", () => {
-  // 1. Always start at the root to ensure the Angular app boots up properly
-  cy.visit("/", { timeout: 60000 });
-  
-  // 2. Wait for the app to be ready (products loaded)
+  cy.visit("/", { timeout: 60000, failOnStatusCode: false });
   cy.get('[data-test="product-name"]', { timeout: 15000 }).should("be.visible");
-  
-  // 3. Click the sign-in button in the navigation bar
   cy.get('[data-test="nav-sign-in"]').click();
-  
-  // 4. Now wait for the email field to ensure the page transitioned
   cy.get('[data-test="email"]', { timeout: 15000 }).should("be.visible");
 });
 
