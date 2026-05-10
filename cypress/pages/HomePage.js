@@ -1,9 +1,7 @@
 class HomePage {
   visit() {
-    cy.intercept("GET", "**/products?*").as("getInitialProducts");
     cy.visit("/", { timeout: 60000, failOnStatusCode: false });
-    cy.wait("@getInitialProducts", { timeout: 30000 });
-    cy.get('[data-test="product-name"]', { timeout: 15000 })
+    cy.get('[data-test="product-name"]', { timeout: 30000 })
       .should("be.visible")
       .and("have.length.greaterThan", 0);
   }

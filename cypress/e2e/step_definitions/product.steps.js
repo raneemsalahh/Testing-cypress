@@ -1,11 +1,10 @@
-import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import homePage from "../../pages/HomePage";
-import productPage from "../../pages/ProductPage";
+const { When, Then } = require("@badeball/cypress-cucumber-preprocessor");
+const homePage = require("../../pages/HomePage");
+const productPage = require("../../pages/ProductPage");
 
 When("I click the first product", () => {
-  cy.intercept("GET", "**/products/*").as("getProductDetails");
   homePage.clickFirstProduct();
-  cy.wait("@getProductDetails");
+  cy.get('[data-test="unit-price"]', { timeout: 15000 }).should("be.visible");
 });
 
 Then("the product name should be visible on the detail page", () => {

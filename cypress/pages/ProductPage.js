@@ -24,10 +24,10 @@ class ProductPage {
   }
 
   addToCart() {
-    cy.wait(500);
-    cy.intercept("POST", "**/carts*").as("addToCartApi");
-    cy.get('[data-test="add-to-cart"]', { timeout: 10000 }).click();
-    cy.wait("@addToCartApi", { timeout: 15000 });
+    cy.get('[data-test="add-to-cart"]', { timeout: 15000 })
+      .should("be.visible")
+      .click();
+    cy.get('[data-test="cart-quantity"]', { timeout: 15000 }).should("be.visible");
   }
 
   assertPriceIsPositive() {
@@ -41,4 +41,4 @@ class ProductPage {
   }
 }
 
-export default new ProductPage();
+module.exports = new ProductPage();
