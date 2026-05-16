@@ -1,6 +1,6 @@
-import { Given } from "@badeball/cypress-cucumber-preprocessor";
-import homePage from "../../pages/HomePage";
-import loginPage from "../../pages/LoginPage";
+const { Given } = require("@badeball/cypress-cucumber-preprocessor");
+const homePage = require("../../pages/HomePage");
+const loginPage = require("../../pages/LoginPage");
 
 Given("I am on the homepage", () => {
   homePage.visit();

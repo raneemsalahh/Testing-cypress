@@ -1,9 +1,6 @@
 class LoginPage {
   navigate() {
-    cy.visit("/", { timeout: 60000, failOnStatusCode: false });
-    cy.get("app-root", { timeout: 30000 }).should("exist");
-    cy.get('[data-test="product-name"]', { timeout: 45000 }).should("exist");
-    cy.get('[data-test="nav-sign-in"]').click();
+    cy.visit("/auth/login", { timeout: 60000, failOnStatusCode: false });
     cy.get('[data-test="email"]', { timeout: 15000 }).should("be.visible");
   }
 
